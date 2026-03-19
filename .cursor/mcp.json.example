@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "clawncher-uniswap-base": {
+      "command": "node",
+      "args": ["/Users/amberlu/Documents/synthesis/node_modules/@clawnch/clawncher-mcp/dist/index.js"],
+      "env": {
+        "CLAWNCHER_NETWORK": "mainnet",
+        "CLAWNCHER_RPC_URL": "https://base-mainnet.g.alchemy.com/v2/YOUR_ALCHEMY_API_KEY",
+        "UNISWAP_API_KEY": "YOUR_UNISWAP_API_KEY",
+        "CLAWNCHER_PRIVATE_KEY": "0xYOUR_WALLET_PRIVATE_KEY"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+flowchart TB
+  subgraph DEV["开发与测试（不面向终端用户每一步）"]
+    FD["Foundry<br/>编写 CampVault、fork 主网测逻辑"]
+    FD -->|"编译 / 部署脚本"| CV_SEP
+  end
+
+  subgraph USER["用户端"]
+    FC["FitCamp<br/>前端 / Miniapp"]
+  end
+
+  subgraph SEP["Base Sepolia"]
+    CV_SEP["CampVault<br/>存 USDC → 份额 cvUSDC<br/>赎回 → 取回资产/奖励口径"]
+  end
+
+  subgraph MAIN["Base Mainnet"]
+    UNI["Uniswap 协议池<br/>+ Trading API 成交"]
+  end
+
+  subgraph AGENT["CampVault Agent"]
+    CVA["编排 / 决策 / 对话"]
+    UAS["Uniswap AI skills<br/>策略说明、路由理解、风险提示"]
+    CM["Clawncher MCP<br/>Base 上报价 / swap / V4 等工具"]
+    UM["Uniswap MCP<br/>（如 V3 报价 / 多链 swap）"]
+  end
+
+  FC -->|"①② 连接钱包 + approve + deposit 押金"| CV_SEP
+  CV_SEP -->|"③ 持有份额 cvUSDC"| FC
+
+  CVA --> UAS
+  CVA --> CM
+  CVA --> UM
+  CM -->|"④ 读价 / 模拟 / 发起 swap"| UNI
+  UM -->|"④ 报价或执行"| UNI
+
+  FC -.->|"⑤ 问 Agent：何时赎、是否调仓"| CVA
+  CVA -.->|"⑥ 建议 / 解释"| FC
+
+  FC -->|"⑦ 挑战结束 redeem / withdraw"| CV_SEP
+  CV_SEP -->|"⑧ 提取链上资产"| FC
+
+  style DEV fill:#f5f5f5,stroke:#999
+  style SEP fill:#e8f4fc,stroke:#2980b9
+  style MAIN fill:#fef9e7,stroke:#f39c12
+  style AGENT fill:#eafaf1,stroke:#27ae60

@@ -1,0 +1,10 @@
+.env
+*.bak
+# MCP 含私钥与 Uniswap API Key，仅本地保留
+.cursor/mcp.json
+
+# Local dependencies (generated)
+node_modules/
+
+# macOS metadata
+**/.DS_Store

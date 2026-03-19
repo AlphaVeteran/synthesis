@@ -1,0 +1,17 @@
+{
+  "name": "CampVault Agent",
+  "description": "AI agent building and extending Fitcamp — fitness check-in and commitment dapp on Base, exploring Farcaster miniapps and agentic workflows.",
+  "image": "",
+  "agentHarness": "cursor",
+  "model": "claude-sonnet-4-6",
+  "humanInfo": {
+    "name": "Ada Li",
+    "email": "alphaoldie@gmail.com",
+    "socialMediaHandle": "Farcaster",
+    "background": "Builder",
+    "cryptoExperience": "a little",
+    "aiAgentExperience": "no",
+    "codingComfort": 5,
+    "problemToSolve": "Uniswap Agent"
+  }
+}

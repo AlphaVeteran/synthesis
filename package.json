@@ -1,0 +1,28 @@
+{
+  "name": "synthesis",
+  "version": "1.0.0",
+  "description": "本目录用于参加 [The Synthesis](https://synthesis.md/) 黑客松：AI Agent 与人类共同构建的 14 天线上活动。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "overrides": {
+    "@uniswap/v4-sdk": "1.27.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@clawnch/clawncher-mcp": "^0.2.2",
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "@thanpolas/univ3prices": "^3.0.2",
+    "dotenv": "^16.6.1",
+    "ethers": "^6.16.0",
+    "https-proxy-agent": "^7.0.6",
+    "zod": "^3.25.76"
+  }
+}
