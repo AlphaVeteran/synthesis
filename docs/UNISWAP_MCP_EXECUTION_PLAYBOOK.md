@@ -6,6 +6,8 @@
 2. `LP` 计划参数（`tick/fee/slippage`）  
 3. 至少一笔可验证执行（`TxID` 或模拟证明）
 
+架构图（GitHub）：[`docs/campvault_agent_frame.png`](https://github.com/AlphaVeteran/synthesis/blob/main/docs/campvault_agent_frame.png)
+
 ---
 
 ## 0. 前置准备（一次性）
