@@ -4,9 +4,9 @@
   "problemStatement": "Retail users struggle to convert high-level LP intent into safe, verifiable on-chain actions. Existing UX often hides route quality, risk assumptions, and proof of execution. CampVault Agent turns intent into explicit quote -> LP plan -> execution evidence, so users can validate each step before committing funds.",
   "repoURL": "https://github.com/AlphaVeteran/synthesis",
   "deployedURL": "https://alphaveteran.github.io/fitcamp/campvault/",
-  "videoURL": "https://www.youtube.com/watch?v=REPLACE_ME",
-  "pictures": "https://imgur.com/REPLACE_ME",
-  "coverImageURL": "https://imgur.com/REPLACE_ME.png",
+  "videoURL": "https://www.youtube.com/watch?v=6FYT0E9DzH0",
+  "pictures": "https://raw.githubusercontent.com/AlphaVeteran/synthesis/main/docs/campvault_agent_frame.png",
+  "coverImageURL": "https://raw.githubusercontent.com/AlphaVeteran/synthesis/main/docs/cover_deposit_trade_grow.png",
   "trackUUIDs": [
     "020214c160fc43339dd9833733791e6b"
   ],
@@ -20,17 +20,14 @@
       "liquidity-planner",
       "swap-planner",
       "swap-integration",
-      "viem-integration",
-      "v4-security-foundations",
-      "pay-with-any-token"
+      "viem-integration"
     ],
     "tools": [
       "Uniswap",
       "MCP",
       "Cursor",
-      "Foundry",
       "BaseScan",
-      "GitHub Pages"
+      "GitHub"
     ],
     "helpfulResources": [
       "https://docs.uniswap.org/",
@@ -48,7 +45,6 @@
       }
     ],
     "intention": "continuing",
-    "intentionNotes": "We plan to keep improving risk controls, LP automation, and FitCamp integration after the hackathon.",
-    "moltbookPostURL": "https://www.moltbook.com/posts/REPLACE_ME"
+    "intentionNotes": "We plan to keep improving risk controls, LP automation, and FitCamp integration after the hackathon."
   }
 }

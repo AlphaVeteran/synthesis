@@ -1,0 +1,28 @@
+1
+00:00:00,000 --> 00:00:12,000
+Hi everyone. We’re building CampVault Agent (MVP): turning the intent—deposit into the market for value growth—into an explainable, verifiable on-chain workflow.
+
+2
+00:00:12,000 --> 00:00:25,000
+Step one is strategy locking on the page. I set Deposit to 5 USDC, Horizon to 1 day, Risk to conservative, then click “Apply parameters.”
+
+3
+00:00:25,000 --> 00:00:38,000
+This ensures the subsequent quote and LP planning stay consistent with the same constraints, preventing parameter drift during the demo.
+
+4
+00:00:38,000 --> 00:00:52,000
+Next, we turn the intent into a real transaction: click the deep-link button and open USDC → WETH on Uniswap.
+
+5
+00:00:52,000 --> 00:01:08,000
+On Uniswap, enter the swap input amount for the small demo, then confirm. After you sign in your wallet, the swap will be broadcast on Base Mainnet, and we can verify it on BaseScan with the real txHash.
+
+6
+00:01:08,000 --> 00:01:22,000
+Back in the narrative, our three-step goal is clear: quote + route must come from Uniswap MCP; lpPlan provides tickLower/tickUpper, fee, and slippage; and execution should either include the real txHash or provide a verifiable simulation preview in MVP mode.
+
+7
+00:01:22,000 --> 00:01:30,000
+The value of this workflow is traceability: users can see the route, risk assumptions, and on-chain proof. And we only use Base Mainnet (chainId 8453) for the MCP/Trading API path to avoid quote failures on unsupported testnets.
+

@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:12,000
+大家好，我们在做的是 CampVault Agent（MVP）：把用户“押金进入交易市场、获取增值”的意图，变成一套可解释、可验证的链上流程。
+Hi everyone. We’re building CampVault Agent (MVP): turning the intent—deposit into the market for value growth—into an explainable, verifiable on-chain workflow.
+
+2
+00:00:12,000 --> 00:00:25,000
+第一步先在页面完成策略锁定。我把 Deposit 设为 5 USDC，Horizon 设为 1 天，Risk 选择 conservative，然后点击“应用参数”。
+Step one is strategy locking on the page. I set Deposit to 5 USDC, Horizon to 1 day, Risk to conservative, then click “Apply parameters.”
+
+3
+00:00:25,000 --> 00:00:38,000
+这样后续生成的 quote、LP 建仓计划都会围绕同一套约束，避免演示过程中参数漂移。
+This ensures the subsequent quote and LP planning stay consistent with the same constraints, preventing parameter drift during the demo.
+
+4
+00:00:38,000 --> 00:00:52,000
+接下来我们把意图落到真实交易：点击页面的深链按钮，在 Uniswap 打开 USDC → WETH。
+Next, we turn intent into a real transaction: click the deep-link button and open USDC → WETH on Uniswap.
+
+5
+00:00:52,000 --> 00:01:08,000
+在 Uniswap 里填写这次小额验证的输入金额，钱包签名并广播到 Base 主网。随后在 BaseScan 上拿到真实 txHash，这就是第三步可验证执行证据的来源。
+In Uniswap, enter the small validation amount. Sign and broadcast from your wallet to Base Mainnet. Then grab the real txHash on BaseScan—that’s the source for the third step, verifiable execution evidence.
+
+6
+00:01:08,000 --> 00:01:22,000
+回到叙事里，我们强调三步：quote+route 必须来自 Uniswap MCP；lpPlan 给出 tickLower/tickUpper、fee 和 slippage，体现 conservative 风险偏好；execution 要么给 txHash，要么在 MVP 阶段给可验证的模拟预览。
+Back to the narrative: three steps. Quote + route must come from Uniswap MCP. lpPlan outputs tickLower/tickUpper, fee, and slippage—reflecting the conservative risk posture. Execution either provides the txHash or, in MVP, a verifiable simulation preview.
+
+7
+00:01:22,000 --> 00:01:30,000
+整个价值在于：用户看到的不只是“建议做什么”，而是路由、风险假设和链上证据都能追溯与复现；并且只在 Base Mainnet（chainId 8453）上走 MCP/Trading API 路径，避免测试网不支持导致 quote 失败。
+The value is that users don’t just see “what to do.” They can trace and reproduce the route, risk assumptions, and on-chain proof. And we only use Base Mainnet (chainId 8453) for the MCP/Trading API path to avoid quote failures on unsupported testnets.
+
