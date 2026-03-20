@@ -20,6 +20,8 @@
     "@clawnch/clawncher-mcp": "^0.2.2",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@thanpolas/univ3prices": "^3.0.2",
+    "@uniswap/sdk-core": "^7.12.2",
+    "@uniswap/v4-sdk": "^1.27.0",
     "dotenv": "^16.6.1",
     "ethers": "^6.16.0",
     "https-proxy-agent": "^7.0.6",

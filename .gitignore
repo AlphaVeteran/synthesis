@@ -2,7 +2,7 @@
 *.bak
 # MCP 含私钥与 Uniswap API Key，仅本地保留
 .cursor/mcp.json
-
+.cursor/mcp_sepolia.json
 # Local dependencies (generated)
 node_modules/
 

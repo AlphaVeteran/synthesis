@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "synthesis",
+      "path": "."
+    },
+    {
+      "name": "fitcamp",
+      "path": "../fitcamp"
+    }
+  ],
+  "settings": {}
+}
