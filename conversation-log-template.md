@@ -78,18 +78,25 @@
 - 已形成的可验证产物：
   - CampVault 前端可演示参数锁定与请求生成；
   - Uniswap 报价与路由可返回（含池地址、fee、amountOut/minOut、priceImpact）；
-  - 项目代码已整理并推送到 GitHub。
+  - 已完成 Base Mainnet 小额真实交易并拿到 `txHash`；
+  - 项目代码已整理并推送到 GitHub（`fitcamp` + `synthesis`）。
 - 当前状态：
-  - Quote/Route 链路已打通；
-  - LP 参数与执行证据仍受当前工具链联动稳定性影响，按“无法验证则返回 error”策略处理。
+  - Quote/Route 链路在 `chainId=8453` 已稳定可用；
+  - `chainId=84532` 会被 Uniswap Trading API 拒绝（已在流程中显式规避）；
+  - `execution.txHash` 为 `null` 时代表未真实广播，已补充“如何获得真实 txHash”的操作路径。
 
 ---
 
 ## 7) 代码仓库与交付动作
 
-- 本地仓库已初始化并推送：
+- 仓库与推送记录：
   - 远程：`https://github.com/AlphaVeteran/synthesis.git`
   - 默认分支：`main`
+  - 关键提交：`a7cd713`（skills、workspace、proxy/依赖调整等）
+- FitCamp 仓库同步推送：
+  - 远程：`https://github.com/AlphaVeteran/fitcamp.git`
+  - 分支：`main`
+  - 关键提交：`9873355`（CampVault 页面链路统一为 Base Mainnet 8453）
 - 安全与仓库卫生：
   - `.cursor/mcp.json` 保持忽略（本地密钥不入库）；
   - `node_modules/`、`.DS_Store` 已加入忽略。
@@ -106,3 +113,22 @@
   - slash 机制；
   - 更细粒度风险参数与再平衡策略；
   - 更完善的 submission 自动化与演示脚本。
+
+---
+
+## 9) 本轮新增关键事件（主网演练闭环）
+
+- 链路统一：
+  - 将 CampVault 请求模板中的 `JSON schema`、`formatMcpRequestText`、`MCP 指引` 的 `chainId/chain_id` 统一为 `8453`；
+  - 明确禁止在该链路使用 `84532`（Uniswap Trading API 不支持）。
+- 小额真实演练（5 USDC）：
+  - 先用 MCP 完成 `quote_only=true`；
+  - 再发真实 swap（`quote_only=false`），成功拿到主网 `txHash`：
+    - `0x19edc4e727bdbbba2a6705bf36abe7be95b16df94b970a7be117a9d76ee2cd11`
+  - 用于录屏时可在 BaseScan 直接验证。
+- 工具链波动与应对：
+  - MCP 工具列表曾出现切换（`clawncher_uniswap_swap` 与 `clawncher_swap` 可用性波动）；
+  - 发生过 Provider Error / Tool not found / RPC 429 等问题，处理方式为刷新 MCP、重试、改走稳定工具链。
+- 页面侧“直接可执行”改进：
+  - 在 `fitcamp/web/campvault/index.html` 增加“在 Uniswap 打开 USDC → WETH”深链按钮；
+  - 让演示者可从页面直接跳到官方 Uniswap 完成真实 swap 并拿 `txHash`（不在页面托管私钥）。

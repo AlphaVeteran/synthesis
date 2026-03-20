@@ -1,0 +1,54 @@
+{
+  "name": "CampVault Agent",
+  "description": "CampVault Agent is an AI-assisted DeFi workflow for FitCamp that helps users plan and execute conservative single-sided USDC LP entry on Base. It combines strategy inputs (deposit, horizon, risk), MCP-powered quote/route retrieval, and execution evidence to make Uniswap liquidity actions transparent and reproducible.",
+  "problemStatement": "Retail users struggle to convert high-level LP intent into safe, verifiable on-chain actions. Existing UX often hides route quality, risk assumptions, and proof of execution. CampVault Agent turns intent into explicit quote -> LP plan -> execution evidence, so users can validate each step before committing funds.",
+  "repoURL": "https://github.com/AlphaVeteran/synthesis",
+  "deployedURL": "https://alphaveteran.github.io/fitcamp/campvault/",
+  "videoURL": "https://www.youtube.com/watch?v=REPLACE_ME",
+  "pictures": "https://imgur.com/REPLACE_ME",
+  "coverImageURL": "https://imgur.com/REPLACE_ME.png",
+  "trackUUIDs": [
+    "020214c160fc43339dd9833733791e6b"
+  ],
+  "conversationLog": "# Conversation log — Human ↔ CampVault Agent\n\n> 用于 Devfolio `conversationLog`。以下内容基于本项目真实协作过程整理，已对敏感信息脱敏。\n\n---\n\n## 1) 项目目标与范围收敛\n\n- 人类最初目标：在 FitCamp 押金场景里做「动态质押池 Agent」，结合 Uniswap + MCP，形成可演示的 Agentic Finance 方案。\n- 经过多轮讨论后明确：项目命名为 `CampVault Agent`，优先做可按时交付的 MVP。\n- MVP 范围最终确定为：\n  - 单币金库（Base USDC）；\n  - `deposit / redeem / shares`；\n  - 暂不做 slash（延期到二期）；\n  - 联调压力大时先用独立 CampVault 演示页，不强依赖 FitCamp 主流程。\n\n---\n\n## 2) 架构与链路决策\n\n- 讨论过 Base Sepolia 与 Base Mainnet 的取舍：\n  - 合约开发/演示可在本地 fork 或测试网进行；\n  - Uniswap 赛道产物（quote/route/交易证据）优先走 Base Mainnet 能力链路。\n- 形成的核心流程：\n  1. 用户在 CampVault 页面输入策略参数（Deposit/Horizon/Risk）并锁定；\n  2. 页面生成可执行提示词；\n  3. Agent 调用 Uniswap MCP 输出三阶段结果（quote+route -> lpPlan -> execution）。\n- 文档化了流程图与执行手册，沉淀在 `docs/` 下（架构图、MCP 接入、执行 playbook）。\n\n---\n\n## 3) 核心实现与前端迭代\n\n- 新建并完善 CampVault 相关代码与文档：\n  - 合约、脚本、测试：`campvault/src`、`campvault/script`、`campvault/test`；\n  - 演示文档与流程：`docs/` 多份说明。\n- 页面层面实现了演示闭环：\n  - 参数输入与“应用参数（固定策略约束）”；\n  - “一键生成 Uniswap MCP 请求”；\n  - Agent 单 JSON 粘贴、解析并分三段展示（quote / LP / execution）。\n- 处理了关键前端问题：\n  - 修复 `campvault/app.js` 字符串拼接语法错误，解决按钮无响应；\n  - 本地 server 路由修复后，`/campvault/` 可正确加载。\n\n---\n\n## 4) Uniswap MCP 集成与排障过程\n\n- 集成 `@clawnch/clawncher-mcp` 时遇到依赖问题（`workspace:*`）：\n  - 通过 `package.json` 的 `overrides` 固定版本后可安装；\n  - `mcp.json` 改为直接 `node dist/index.js`，避免 `npx` 反复拉取失败。\n- 排障重点包括：\n  - 私钥格式校验（需有效 hex 形态）；\n  - RPC 占位符问题（替换为可用 Base RPC）；\n  - 代理环境与 Node fetch 行为差异。\n- 验证结论（关键进展）：\n  - Trading API 连通性与认证可达（`check_approval` 返回成功结构）；\n  - `/quote` 能返回完整 route 与报价数据；\n  - 因对话上下文/工具可用性限制，`lpPlan` 与 `execution` 在部分轮次仍只能返回 error（遵循“不编造”约束）。\n\n---\n\n## 5) Skills 安装与可用性确认\n\n- 为解决“缺少 Uniswap AI skills”问题，执行并验证了 skills 安装：\n  - 使用 `npx skills add Uniswap/uniswap-ai`；\n  - 最终 `npx skills ls` 显示 8 个 skills，且 `Agents: Cursor`。\n- 已确认可用 skills 包括：\n  - `liquidity-planner`、`swap-planner`、`swap-integration`、`viem-integration` 等。\n- 建议操作约定：\n  - 安装后重启 Cursor；\n  - 用新会话再次执行 CampVault 提示词，减少旧上下文缓存影响。\n\n---\n\n## 6) 可验证产物与当前状态\n\n- 已形成的可验证产物：\n  - CampVault 前端可演示参数锁定与请求生成；\n  - Uniswap 报价与路由可返回（含池地址、fee、amountOut/minOut、priceImpact）；\n  - 已完成 Base Mainnet 小额真实交易并拿到 `txHash`；\n  - 项目代码已整理并推送到 GitHub（`fitcamp` + `synthesis`）。\n- 当前状态：\n  - Quote/Route 链路在 `chainId=8453` 已稳定可用；\n  - `chainId=84532` 会被 Uniswap Trading API 拒绝（已在流程中显式规避）；\n  - `execution.txHash` 为 `null` 时代表未真实广播，已补充“如何获得真实 txHash”的操作路径。\n\n---\n\n## 7) 代码仓库与交付动作\n\n- 仓库与推送记录：\n  - 远程：`https://github.com/AlphaVeteran/synthesis.git`\n  - 默认分支：`main`\n  - 关键提交：`a7cd713`（skills、workspace、proxy/依赖调整等）\n- FitCamp 仓库同步推送：\n  - 远程：`https://github.com/AlphaVeteran/fitcamp.git`\n  - 分支：`main`\n  - 关键提交：`9873355`（CampVault 页面链路统一为 Base Mainnet 8453）\n- 安全与仓库卫生：\n  - `.cursor/mcp.json` 保持忽略（本地密钥不入库）；\n  - `node_modules/`、`.DS_Store` 已加入忽略。\n\n---\n\n## 8) 后续计划（赛后/下一迭代）\n\n- 继续提升：\n  - 将 LP 计划从“可解释输出”升级为“可复算 + 可复验公式链路”；\n  - 增加稳定的模拟执行证据或真实小额交易证据；\n  - 推进 CampVault 与 FitCamp 的深度联调。\n- 二期功能候选：\n  - slash 机制；\n  - 更细粒度风险参数与再平衡策略；\n  - 更完善的 submission 自动化与演示脚本。\n\n---\n\n## 9) 本轮新增关键事件（主网演练闭环）\n\n- 链路统一：\n  - 将 CampVault 请求模板中的 `JSON schema`、`formatMcpRequestText`、`MCP 指引` 的 `chainId/chain_id` 统一为 `8453`；\n  - 明确禁止在该链路使用 `84532`（Uniswap Trading API 不支持）。\n- 小额真实演练（5 USDC）：\n  - 先用 MCP 完成 `quote_only=true`；\n  - 再发真实 swap（`quote_only=false`），成功拿到主网 `txHash`：\n    - `0x19edc4e727bdbbba2a6705bf36abe7be95b16df94b970a7be117a9d76ee2cd11`\n  - 用于录屏时可在 BaseScan 直接验证。\n- 工具链波动与应对：\n  - MCP 工具列表曾出现切换（`clawncher_uniswap_swap` 与 `clawncher_swap` 可用性波动）；\n  - 发生过 Provider Error / Tool not found / RPC 429 等问题，处理方式为刷新 MCP、重试、改走稳定工具链。\n- 页面侧“直接可执行”改进：\n  - 在 `fitcamp/web/campvault/index.html` 增加“在 Uniswap 打开 USDC → WETH”深链按钮；\n  - 让演示者可从页面直接跳到官方 Uniswap 完成真实 swap 并拿 `txHash`（不在页面托管私钥）。\n",
+  "submissionMetadata": {
+    "agentFramework": "other",
+    "agentFrameworkOther": "Custom CampVault agent workflow with MCP tools + project skills",
+    "agentHarness": "cursor",
+    "model": "claude-sonnet-4-6",
+    "skills": [
+      "liquidity-planner",
+      "swap-planner",
+      "swap-integration",
+      "viem-integration",
+      "v4-security-foundations",
+      "pay-with-any-token"
+    ],
+    "tools": [
+      "Uniswap",
+      "MCP",
+      "Cursor",
+      "Foundry",
+      "BaseScan",
+      "GitHub Pages"
+    ],
+    "helpfulResources": [
+      "https://docs.uniswap.org/",
+      "https://synthesis.devfolio.co/submission/skill.md",
+      "https://viem.sh/"
+    ],
+    "helpfulSkills": [
+      {
+        "name": "liquidity-planner",
+        "reason": "Helped structure conservative LP range planning around explicit risk assumptions."
+      },
+      {
+        "name": "swap-integration",
+        "reason": "Improved swap execution flow and troubleshooting for quote-to-transaction conversion."
+      }
+    ],
+    "intention": "continuing",
+    "intentionNotes": "We plan to keep improving risk controls, LP automation, and FitCamp integration after the hackathon.",
+    "moltbookPostURL": "https://www.moltbook.com/posts/REPLACE_ME"
+  }
+}
