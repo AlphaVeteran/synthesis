@@ -5,6 +5,8 @@
 .cursor/mcp_sepolia.json
 # Local dependencies (generated)
 node_modules/
+.venv-ffmpeg/
+video_frames/
 
 # macOS metadata
 **/.DS_Store

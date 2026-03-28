@@ -1,3 +1,19 @@
+已 publish
+https://synthesis.devfolio.co/projects/e56fe237babc4a3088e198d8f17c1575
+代码仓库
+https://github.com/AlphaVeteran/synthesis
+
+在线 Demo
+https://alphaveteran.github.io/fitcamp/campvault/
+视频
+https://youtube.com/watch?v=6FYT0E9DzH0
+
+封面图（raw）
+https://raw.githubusercontent.com/AlphaVeteran/synthesis/main/docs/cover_deposit_trade_grow.png
+补充图（raw）
+https://raw.githubusercontent.com/AlphaVeteran/synthesis/main/docs/campvault_agent_frame.png
+
+
 # Synthesis Hackathon — 本地工作目录
 
 本目录用于参加 [The Synthesis](https://synthesis.md/) 黑客松：AI Agent 与人类共同构建的 14 天线上活动。
